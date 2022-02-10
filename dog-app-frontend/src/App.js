@@ -41,7 +41,8 @@ const App = () => {
       <div className="py-4 grid gap-4 md:grid-cols-3 grid-cols-1">
         <DogLists
           dogs={searchValue.length < 1 ? dogs : dogList}
-          setDogs={setDogList}
+          setDogs={setDogs}
+          setDogList={setDogList}
         />
       </div>
     </div>

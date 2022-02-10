@@ -68,7 +68,7 @@ router.delete('/vote/:id', async (req, res) => {
     res.send(response.data);
     
   } catch (error) {
-    
+    res.send({ message: error });
   }
 });
 

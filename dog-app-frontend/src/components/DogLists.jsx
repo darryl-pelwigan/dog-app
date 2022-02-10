@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-const DogLists = ({ dogs, setDogs }) => {
+const DogLists = ({ dogs, setDogs, setDogList }) => {
   const handleVotes = async (dog) => {
     const value = dog.value === 1 ? 0 : 1;
     dog.value = value;
@@ -13,9 +13,11 @@ const DogLists = ({ dogs, setDogs }) => {
     let newDog;
     try {
       if (value === 0) {
-        await axios.delete(
+        console.log(dog.votes_id);
+        const response = await axios.delete(
           `http://localhost:5000/api/dogs/vote/${dog.votes_id}`
         );
+        console.log(response);
         delete dog.votes_id;
         newDog = dog;
       } else {
@@ -25,10 +27,10 @@ const DogLists = ({ dogs, setDogs }) => {
         );
         newDog = { ...dog, votes_id: response.data.id };
       }
-
       const filterProps = dogs.filter((prop) => prop.id !== dog.id);
       const newData = [newDog, ...filterProps];
       setDogs(newData);
+      setDogList(newData);
     } catch (error) {
       console.log(error.message);
     }
